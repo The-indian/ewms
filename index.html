@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-waste management</title>
+</head>
+
+<body>
+    <input type="file" id="myImage" onchange="previewFile()">
+    <img src="" height="200" alt="Image preview...">
+
+    <script>
+
+        function previewFile() {
+            var preview = document.querySelector('img');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        }
+
+
+        var image = document.getElementById("myImage");
+
+
+        const axios = require("axios");
+        const fs = require("fs");
+
+        // const image = fs.readFileSync("W:/Hackathon/V1/diode.png", {
+        // 	encoding: "base64"
+        // });
+
+        axios({
+            method: "POST",
+            url: "https://classify.roboflow.com/yolov5-fjfmh/1",
+            params: {
+                api_key: "fk4ifAuNpPxrMlusjS6H"
+            },
+            data: image,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        })
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error.message);
+            });
+
+
+
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlt3qdQ0aLwpDmqJuoNHZ6IGYKzQnyNrM",
+            authDomain: "ewmst-1.firebaseapp.com",
+            projectId: "ewmst-1",
+            storageBucket: "ewmst-1.firebasestorage.app",
+            messagingSenderId: "749544654516",
+            appId: "1:749544654516:web:3bb4f4e0f4a8c8bf34b9e1"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+
+
+    </script>
+</body>
+
+</html>
